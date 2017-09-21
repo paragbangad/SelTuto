@@ -14,28 +14,28 @@ public void switchWindow() throws InterruptedException{
 	String parentWindowHandle=driver.getWindowHandle();
 	
 	driver.findElement(By.id("ContentPlaceHolder1_NewWindow")).click();
-	String childWindowHandle=driver.getWindowHandle();
-	driver.switchTo().window(childWindowHandle);
-	driver.findElement(By.id("form1")).click();
-	Thread.sleep(2000);
-	driver.switchTo().alert().accept();	
+	Set<String> handles = driver.getWindowHandles();
+	String parentTitle = driver.getTitle();
+	String handleAfterOpeningWindow=driver.getWindowHandle();
 	
-//	Set<String> handles = driver.getWindowHandles();
-//
-//	for(String handle:handles){
-//	WebDriver newDriver = driver.switchTo().window(handle);
+	for (String s : handles) {
+		if (s!=parentWindowHandle) {
+			driver.switchTo().window(s);
+		}
+	}
+	String childTitle = driver.getTitle();		
+	
+	
 //	driver.findElement(By.id("form1")).click();
 //	Thread.sleep(2000);
-//	driver.switchTo().alert().accept();	
-//	System.out.println(driver.getTitle());
-//	System.out.println(newDriver.getTitle());
-//	
-//}	
 
+	System.out.println("Parent Handle: "+parentWindowHandle + " Parent Title: "+parentTitle);
+	System.out.println("All Handles: "+handles);
+	System.out.println("Handle after new window: "+handleAfterOpeningWindow+" ");	
+	System.out.println("Child Window Handle: "+driver.getWindowHandle()+" Child Title: "+childTitle);
+	driver.close();
 	Thread.sleep(2000);
 	driver.switchTo().window(parentWindowHandle);
-	driver.findElement(By.id("ContentPlaceHolder1_NewWindow")).click();
-//	Thread.sleep(3000);
 	
 }
 }
