@@ -31,11 +31,21 @@ public void switchWindow() throws InterruptedException{
 
 	System.out.println("Parent Handle: "+parentWindowHandle + " Parent Title: "+parentTitle);
 	System.out.println("All Handles: "+handles);
-	System.out.println("Handle after new window: "+handleAfterOpeningWindow+" ");	
+	System.out.println("Handle after new window: "+handleAfterOpeningWindow+" ");
+	
 	System.out.println("Child Window Handle: "+driver.getWindowHandle()+" Child Title: "+childTitle);
+	driver.findElement(By.xpath(".//*[@id='form1']/div[7]/input")).click();
+	Thread.sleep(2000);
+	driver.switchTo().alert().accept();
 	driver.close();
 	Thread.sleep(2000);
 	driver.switchTo().window(parentWindowHandle);
+	
+//	driver.findElement(By.id("ContentPlaceHolder1_NewWindow")).click();
+//	Set<String> newHandles = driver.getWindowHandles();
+//	System.out.println("New Handles: "+newHandles);
+	
+
 	
 }
 }
